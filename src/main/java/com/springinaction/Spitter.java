@@ -3,6 +3,10 @@ package com.springinaction;
 import com.sun.istack.internal.NotNull;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.Size;
+
 
 /**
  * Created by 1 on 27.03.2017.
