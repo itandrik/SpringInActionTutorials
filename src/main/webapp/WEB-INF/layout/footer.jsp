@@ -1,0 +1,1 @@
+&copy Andrii Chernysh test application. All rights reserved.

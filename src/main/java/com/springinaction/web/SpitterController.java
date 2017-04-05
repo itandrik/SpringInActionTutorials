@@ -9,8 +9,11 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by 1 on 27.03.2017.
@@ -32,12 +35,27 @@ public class SpitterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegistration(@Valid Spitter spitter, Errors errors) {
+    public String processRegistration(
+            /*@RequestPart("profilePicture") byte[] profilePicture,
+            @Valid Spitter spitter,*/
+            @Valid Spitter spitter,
+            Errors errors) throws IOException {
         if(errors.hasErrors()){
             return "registerForm";
         }
+
         spitterRepository.save(spitter);
+        saveFile(spitter);
         return "redirect:/spitter/" + spitter.getUsername();
+    }
+
+    private void saveFile(@Valid Spitter spitter)
+            throws IOException {
+        MultipartFile file = spitter.getProfilePicture();
+        String contentType = file.getContentType();
+        File tempFile = new File("C:/springinaction/" + spitter.getUsername() + "." +
+                contentType.substring(contentType.indexOf("/") + 1));
+        file.transferTo(tempFile);
     }
 
     @RequestMapping(value="/{username}",method = RequestMethod.GET)

@@ -4,6 +4,7 @@ import com.sun.istack.internal.NotNull;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Size;
 
@@ -34,19 +35,31 @@ public class Spitter {
     @Email(message = "{email.error.msg}")
     private String email;
 
+    private MultipartFile profilePicture;
+
     public Spitter() {}
 
-    public Spitter(String username, String password, String firstName, String lastName, String email) {
-        this(null, username, password, firstName, lastName, email);
+    public Spitter(String username, String password, String firstName, String lastName, String email, MultipartFile profilePicture) {
+        this(null, username, password, firstName, lastName, email, profilePicture);
     }
 
-    public Spitter(Long id, String username, String password, String firstName, String lastName, String email) {
+    /*public Spitter(Long id, String username, String password, String firstName, String lastName, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }*/
+
+    public Spitter(Long id, String username, String password, String firstName, String lastName, String email, MultipartFile profilePicture) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.profilePicture = profilePicture;
     }
 
     public String getUsername() {
@@ -95,6 +108,14 @@ public class Spitter {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public MultipartFile getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(MultipartFile profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     @Override
